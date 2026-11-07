@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="460" viewBox="0 0 900 460" role="img" aria-label="四组接线：USB、串口、网口、HDMI">
+  <style>
+    .pc { fill:#eef4fb; stroke:#4a6fa5; stroke-width:2; }
+    .bd { fill:#fff7e6; stroke:#d08a2e; stroke-width:2; }
+    .ln { stroke:#4b5563; stroke-width:2.5; fill:none; }
+    .t { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:15px; fill:#1f2937; }
+    .s { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:12px; fill:#4b5563; }
+    .w { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:11px; fill:#922b21; }
+  </style>
+
+  <text x="30" y="34" class="t" font-size="20" font-weight="bold">四组接线</text>
+  <text x="30" y="56" class="s">少一组，就少一种证据。USB 与串口是"能救"和"能看"，网口与 HDMI 是"能验"。</text>
+
+  <rect class="pc" x="60" y="90" width="200" height="300" rx="10"/>
+  <text class="t" x="112" y="120">开发机</text>
+  <text class="s" x="88" y="146">Windows / Linux / WSL</text>
+
+  <rect class="bd" x="620" y="90" width="220" height="300" rx="10"/>
+  <text class="t" x="688" y="120">RK 板</text>
+  <text class="s" x="650" y="146">原厂系统 / 待适配</text>
+
+  <!-- links -->
+  <path class="ln" d="M260,140 L620,140"/>
+  <text class="t" x="300" y="132">USB</text>
+  <text class="s" x="360" y="132">刷机 / MaskROM</text>
+
+  <path class="ln" d="M260,205 L620,205"/>
+  <text class="t" x="300" y="197">串口</text>
+  <text class="s" x="360" y="197">TTL 或 RS-232（先量电平）</text>
+
+  <path class="ln" d="M260,270 L620,270"/>
+  <text class="t" x="300" y="262">网口</text>
+  <text class="s" x="360" y="262">同网段：SSH / TFTP</text>
+
+  <path class="ln" d="M260,335 L620,335"/>
+  <text class="t" x="300" y="327">HDMI</text>
+  <text class="s" x="360" y="327">采集卡 / 屏幕（第二条眼睛）</text>
+
+  <!-- notes -->
+  <text class="w" x="60" y="425">⚠ 串口电平搞错会打坏转换器；USB 口要记住哪一个能进 MaskROM；网口不通先查物理层。</text>
+  <text class="s" x="60" y="446">建议：先接串口并开终端，再上电；HDMI 用采集卡便于回放。</text>
+</svg>

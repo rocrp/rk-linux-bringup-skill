@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-label="RK 板启动链与失败特征">
+  <style>
+    .stage { fill:#eef4fb; stroke:#4a6fa5; stroke-width:2; }
+    .fail  { fill:#fdecea; stroke:#c0392b; stroke-width:1.5; }
+    .t { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:15px; fill:#1f2937; }
+    .s { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:12px; fill:#4b5563; }
+    .f { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:11px; fill:#922b21; }
+    .a { stroke:#6b7280; stroke-width:2; fill:none; marker-end:url(#ar); }
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <text x="30" y="36" class="t" font-size="20" font-weight="bold">启动链：每一段失败都有特征</text>
+  <text x="30" y="58" class="s">先记住正常输出长什么样，出问题时才知道停在哪一段。</text>
+
+  <!-- stages -->
+  <rect class="stage" x="40" y="90" width="170" height="70" rx="8"/>
+  <text class="t" x="56" y="118">BootROM</text>
+  <text class="s" x="56" y="140">片上固件</text>
+
+  <rect class="stage" x="240" y="90" width="170" height="70" rx="8"/>
+  <text class="t" x="256" y="118">DDR 初始化</text>
+  <text class="s" x="256" y="140">版本串 / 频率 / 容量</text>
+
+  <rect class="stage" x="440" y="90" width="170" height="70" rx="8"/>
+  <text class="t" x="456" y="118">BL31 (ATF)</text>
+  <text class="s" x="456" y="140">BL31: v...</text>
+
+  <rect class="stage" x="640" y="90" width="170" height="70" rx="8"/>
+  <text class="t" x="656" y="118">U-Boot</text>
+  <text class="s" x="656" y="140">U-Boot 20xx.xx</text>
+
+  <rect class="stage" x="640" y="220" width="170" height="70" rx="8"/>
+  <text class="t" x="656" y="248">内核</text>
+  <text class="s" x="656" y="270">Machine model</text>
+
+  <rect class="stage" x="440" y="220" width="170" height="70" rx="8"/>
+  <text class="t" x="456" y="248">initramfs</text>
+  <text class="s" x="456" y="270">(initramfs) 提示符</text>
+
+  <rect class="stage" x="240" y="220" width="170" height="70" rx="8"/>
+  <text class="t" x="256" y="248">rootfs</text>
+  <text class="s" x="256" y="270">login:</text>
+
+  <path class="a" d="M210,125 L238,125"/>
+  <path class="a" d="M410,125 L438,125"/>
+  <path class="a" d="M610,125 L638,125"/>
+  <path class="a" d="M725,160 L725,218"/>
+  <path class="a" d="M640,255 L612,255"/>
+  <path class="a" d="M440,255 L412,255"/>
+
+  <!-- failures -->
+  <rect class="fail" x="40" y="340" width="280" height="60" rx="6"/>
+  <text class="f" x="54" y="362">无任何输出</text>
+  <text class="f" x="54" y="382">→ 先查串口电平/波特率/终端时序</text>
+
+  <rect class="fail" x="340" y="340" width="280" height="60" rx="6"/>
+  <text class="f" x="354" y="362">DDR 之后就停</text>
+  <text class="f" x="354" y="382">→ loader/DDR 参数不匹配（C 入口）</text>
+
+  <rect class="fail" x="640" y="340" width="320" height="60" rx="6"/>
+  <text class="f" x="654" y="362">Starting kernel 后静默</text>
+  <text class="f" x="654" y="382">→ console= 顺序 / loglevel / earlycon</text>
+
+  <rect class="fail" x="340" y="420" width="280" height="60" rx="6"/>
+  <text class="f" x="354" y="442">有分区但挂不上</text>
+  <text class="f" x="354" y="462">→ root= 写法与 initramfs 是否匹配</text>
+
+  <rect class="fail" x="40" y="420" width="280" height="60" rx="6"/>
+  <text class="f" x="54" y="442">第二次启动才挂</text>
+  <text class="f" x="54" y="462">→ 首启脚本改了分区 GUID</text>
+
+  <text x="30" y="508" class="s">判据：Machine model 必须等于你 dts 里的 model，否则跑的不是你的 dtb。</text>
+</svg>

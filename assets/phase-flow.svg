@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="360" viewBox="0 0 1100 360" role="img" aria-label="P0 到 P6 阶段流程与门槛">
+  <style>
+    .box { fill:#f7f9fc; stroke:#4a6fa5; stroke-width:2; rx:10; }
+    .gate { fill:#fff4e5; stroke:#d08a2e; stroke-width:2; }
+    .t { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:15px; fill:#1f2937; }
+    .s { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:12px; fill:#4b5563; }
+    .g { font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif; font-size:11px; fill:#92400e; }
+    .arrow { stroke:#6b7280; stroke-width:2; fill:none; marker-end:url(#a); }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <text x="30" y="36" class="t" font-size="20" font-weight="bold">RK 板 Linux 适配：P0–P6</text>
+  <text x="30" y="60" class="s">每个阶段都有可验证的门槛（G）；卡住时回到上一层补事实或补观测。</text>
+
+  <!-- boxes -->
+  <g>
+    <rect class="box" x="30"  y="90" width="132" height="86"/>
+    <text class="t" x="44" y="116">P0 立项</text>
+    <text class="s" x="44" y="138">做不做、做到哪</text>
+    <text class="s" x="44" y="156">退路确认</text>
+
+    <rect class="box" x="190" y="90" width="132" height="86"/>
+    <text class="t" x="204" y="116">P1 取证</text>
+    <text class="s" x="204" y="138">事实 + 备份</text>
+    <text class="s" x="204" y="156">厂端 DTB</text>
+
+    <rect class="box" x="350" y="90" width="132" height="86"/>
+    <text class="t" x="364" y="116">P2 观测</text>
+    <text class="s" x="364" y="138">串口 + 画面</text>
+    <text class="s" x="364" y="156">两条独立通道</text>
+
+    <rect class="box" x="510" y="90" width="132" height="86"/>
+    <text class="t" x="524" y="116">P3 点亮</text>
+    <text class="s" x="524" y="138">零写入介质</text>
+    <text class="s" x="524" y="156">主线内核起来</text>
+
+    <rect class="box" x="670" y="90" width="132" height="86"/>
+    <text class="t" x="684" y="116">P4 外设</text>
+    <text class="s" x="684" y="138">一次一类</text>
+    <text class="s" x="684" y="156">按依赖链</text>
+
+    <rect class="box" x="830" y="90" width="132" height="86"/>
+    <text class="t" x="844" y="116">P5 固化</text>
+    <text class="s" x="844" y="138">镜像 + 冷启动</text>
+    <text class="s" x="844" y="156">≥3 次</text>
+
+    <rect class="box" x="960" y="90" width="110" height="86"/>
+    <text class="t" x="974" y="116">P6 上游</text>
+    <text class="s" x="974" y="138">可选</text>
+    <text class="s" x="974" y="156">三仓 PR</text>
+  </g>
+
+  <!-- arrows -->
+  <path class="arrow" d="M162,133 L188,133"/>
+  <path class="arrow" d="M322,133 L348,133"/>
+  <path class="arrow" d="M482,133 L508,133"/>
+  <path class="arrow" d="M642,133 L668,133"/>
+  <path class="arrow" d="M802,133 L828,133"/>
+  <path class="arrow" d="M962,133 L958,133"/>
+
+  <!-- gates -->
+  <g>
+    <rect class="gate" x="30"  y="200" width="132" height="34" rx="6"/>
+    <text class="g" x="52" y="222">G0 能回刷 + 救砖</text>
+
+    <rect class="gate" x="190" y="200" width="132" height="34" rx="6"/>
+    <text class="g" x="214" y="222">G1 事实有出处</text>
+
+    <rect class="gate" x="350" y="200" width="132" height="34" rx="6"/>
+    <text class="g" x="374" y="222">G2 抓到 login:</text>
+
+    <rect class="gate" x="510" y="200" width="132" height="34" rx="6"/>
+    <text class="g" x="528" y="222">G3 核心 probe</text>
+
+    <rect class="gate" x="670" y="200" width="132" height="34" rx="6"/>
+    <text class="g" x="690" y="222">G4 核心集全通</text>
+
+    <rect class="gate" x="830" y="200" width="132" height="34" rx="6"/>
+    <text class="g" x="846" y="222">G5 冷启动 3/3</text>
+
+    <rect class="gate" x="960" y="200" width="110" height="34" rx="6"/>
+    <text class="g" x="972" y="222">G6 合并</text>
+  </g>
+
+  <!-- failure loop -->
+  <path d="M576,236 C576,290 300,300 256,236" stroke="#c0392b" stroke-width="2" fill="none" stroke-dasharray="6 4" marker-end="url(#a)"/>
+  <text x="300" y="300" class="s" fill="#c0392b">起不来 / 无日志：回 P1 补事实、回 P2 补观测，不要盲改</text>
+
+  <!-- bottom note -->
+  <text x="30" y="338" class="s">预算：P3 方差最大（1–3 天）；P1、P2 做得越扎实，P3、P4 越快。</text>
+</svg>
