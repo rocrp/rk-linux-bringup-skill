@@ -47,7 +47,8 @@ tftp ${kernel_addr_r} Image
 tftp ${fdt_addr_r} board_v1.dtb
 tftp ${ramdisk_addr_r} initramfs.cpio.gz
 setenv bootargs console=ttyS2,1500000 earlycon=uart8250,mmio32,0xfe660000 rdinit=/bin/sh
-booti ${kernel_addr_r} ${ramdisk_addr_r}:${fdt_addr_r}
+# booti <kernel> [<initrd>[:<size>]] [<fdt>]；filesize 是上一条 tftp（initramfs）的大小
+booti ${kernel_addr_r} ${ramdisk_addr_r}:${filesize} ${fdt_addr_r}
 ```
 
 坑：
@@ -56,7 +57,7 @@ booti ${kernel_addr_r} ${ramdisk_addr_r}:${fdt_addr_r}
 - 有的 U-Boot 收裸 initrd 会失败，需要 `initrd:size` 语法或把 initrd 转成它认识的格式。
 - 有的 U-Boot 每次上电只允许**一次**网络传输，下完一个文件后网络命令全部静默
   → 把内核 + dtb（+ initramfs）拼成**单个文件**，一次取走。`scripts/net/make_payload.py` 做这件事。
-- 老 U-Boot 可能不支持 `booti <kernel> <initrd>:<dtb>` 语法，先 `help booti`。
+- initramfs 必须最后一个 tftp，`${filesize}` 才是它的大小；不用 initrd 时写 `booti <kernel> - <fdt>`。先 `help booti`。
 
 ### 2.3 USB rootfs（需要完整用户态、又不想写 eMMC）
 

@@ -106,12 +106,15 @@ cat /boot/armbianEnv.txt 2>/dev/null || cat /boot/uEnv.txt 2>/dev/null
 ### 4.2 备份命令（以 rkdeveloptool 为例）
 
 ```bash
-sudo rkdeveloptool list                 # 确认 Maskrom
-sudo rkdeveloptool read-flash-info      # 记 Sectors
-sudo rkdeveloptool list-partitions      # 记 userdata 的 Start LBA
-# bytes = StartLBA × 512
-sudo rkdeveloptool read 0 <bytes> emmc-sys-<日期>.img
+sudo rkdeveloptool ld                   # 确认 Maskrom
+sudo rkdeveloptool rfi                  # 记 Sectors
+sudo rkdeveloptool ppt                  # 记 userdata 的 Start LBA
+# rl <BeginSec> <SectorLen> <File>：单位是 512 字节扇区，不是字节
+sudo rkdeveloptool rl 0 <StartLBA> emmc-sys-<日期>.img
 ```
+
+以上是官方 rockchip-linux/rkdeveloptool 的命令。部分分支改用长命令名
+（`list` / `read-flash-info` / `list-partitions` / `read`），`read` 的长度可能按字节计。
 
 GUI 工具也可，但**必须填 Start 和 Count**，否则可能得到 0 字节文件。
 不同工具版本的 `read` 参数含义不同（字节数 vs 扇区数），先看 `-h`。
@@ -119,14 +122,14 @@ GUI 工具也可，但**必须填 Start 和 Count**，否则可能得到 0 字�
 ### 4.3 校验（比"文件存在"重要）
 
 1. 备份镜像的 sha256；
-2. 分区表原文存档（`list-partitions` 输出）；
+2. 分区表原文存档（`ppt` 输出）；
 3. **二次读取首 64 MiB 与末尾 1 MiB 做 `cmp`**；
 4. 抽查几个小分区能否反编译/挂载。
 
 ### 4.4 元数据
 
-`metadata.txt` 里记：日期、工具版本、loader 版本、`read-flash-info` 原文、
-`list-partitions` 原文、文件大小、sha256、操作人。
+`metadata.txt` 里记：日期、工具版本、loader 版本、`rfi` 原文、
+`ppt` 原文、文件大小、sha256、操作人。
 
 ### 4.5 存放
 
